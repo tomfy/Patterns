@@ -1,0 +1,11 @@
+package LatticeLines;
+
+# object to hold a set of line segments between lattice points.
+#
+
+sub new{
+
+
+
+
+1;

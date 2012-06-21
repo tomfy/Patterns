@@ -1,0 +1,270 @@
+%!
+
+%Penrose tiling generator.
+%Author: Ianiv Schweber
+%Copyright: Ianiv Schweber, 2002
+
+%This program is free software; you can redistribute it and/or modify
+%it under the terms of the GNU General Public License as published by
+%the Free Software Foundation; either version 2 of the License, or
+%(at your option) any later version.
+%
+%This program is distributed in the hope that it will be useful,
+%but WITHOUT ANY WARRANTY; without even the implied warranty of
+%MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%GNU General Public License for more details.
+%
+%You should have received a copy of the GNU General Public License
+%along with this program; if not, write to the Free Software
+%Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+%A copy of the GPL can be found at http://www.gnu.org/licenses/gpl.txt
+
+%This program uses the substitution method with 4 types of triangular tiles to
+%generate Penrose tilings. A starting set of triangles is given and the program
+%performs a subdivision of the tiles a specified amount of times.
+
+%--------------------
+%Parameters
+%--------------------
+
+%The triangles to start with (units are inches)
+%triangle format: [type dir base]
+%type can be 0 for a T triangle or 1 for a t triangle
+%dir can be 0 for an L triangle or 1 for an R triangle
+%base is a pair of arrays for the end-points of the base i.e. [x1 y1] [x2 y2]
+
+/triangles [[0 0 [0 11] [8.5 0]] [0 1 [8.5 0] [0 11]]] def
+
+%Number of times to perform the subdivision
+
+/N 8 def
+
+
+
+
+%---------------------------------------------
+%Program starts
+%---------------------------------------------
+
+72 72 scale
+0.02 setlinewidth
+
+%triangle colors
+/Tcolor [1 0 0] def
+/tcolor [0 0 1] def
+
+%arc trig functions
+/acos2 {2 copy dup mul exch dup mul sub sqrt exch pop exch atan} def
+/acos {1 acos2 } def
+
+%These values are used a lot, better to have a constant for them
+/cos36 36 cos def
+/cos72 72 cos def
+
+%triangle format: [type dir base]
+%type can be 0 for a T triangle or 1 for a t triangle
+%dir can be 0 for an L triangle or 1 for an R triangle
+%base is an array of the end-points of the base
+
+%getTop calculates the third vertex of the triangle in the stack
+%it returns an array with the coordinates of the vertex, but
+%it also calculates some values I needed somewhere else and because
+%I don't want to recalculate them getTop also puts 2 numbers in the stack
+%before the vertex.
+%And I just realized that this is setting the triangle colors, instead of
+%doing it in drawTriangles.
+%It works so I'll fix it for the next version, if there is one :)
+/getTop
+{
+  20 dict begin
+  /base exch def
+  /type base 0 get def
+  /x1 base 2 get 0 get def
+  /y1 base 2 get 1 get def
+  /x2 base 3 get 0 get def
+  /y2 base 3 get 1 get def
+  
+  /d
+    x2 x1 sub dup mul
+    y2 y1 sub dup mul
+    add sqrt 2 div
+  def
+    
+  /lambda
+    x2 x1 sub
+    x2 x1 sub dup mul
+    y2 y1 sub dup mul
+    add sqrt div
+    acos
+  def
+	
+  type 0 eq
+    {
+      /l d cos36 div def
+      [
+      lambda
+      l
+      [
+        y2 y1 sub 0 lt { x2 l 36 lambda add cos mul sub } { x1 l 36 lambda add cos mul add } ifelse
+        y2 y1 sub 0 lt { y2 l 36 lambda add sin mul add } { y1 l 36 lambda add sin mul add } ifelse
+      ]
+      ]
+      Tcolor aload pop setrgbcolor
+    }
+    {
+      /l d cos72 div def
+      [
+      lambda
+      l
+      [
+        y2 y1 sub 0 lt { x2 l 72 lambda add cos mul sub } { x1 l 72 lambda add cos mul add } ifelse
+        y2 y1 sub 0 lt { y2 l 72 lambda add sin mul add } { y1 l 72 lambda add sin mul add } ifelse
+      ]
+      ]
+      tcolor aload pop setrgbcolor
+    }
+  ifelse
+  end
+} def
+
+%drawTriangles draws the triangles given in the array in the stack
+/drawTriangles {
+  20 dict begin
+  /triangles exch def
+  
+  triangles {
+    /triangle exch def
+    /type triangle 0 get def
+    /dir triangle 1 get def
+    triangle 2 2 getinterval
+    /base exch def
+    /x1 base 0 get 0 get def
+    /y1 base 0 get 1 get def
+    /x2 base 1 get 0 get def
+    /y2 base 1 get 1 get def
+    /top triangle getTop 2 get def
+    
+    newpath
+    x1 y1 moveto
+    top aload pop lineto
+    x2 y2 lineto
+    closepath
+    fill
+    
+    0 0 0 setrgbcolor
+    newpath
+    x1 y1 moveto
+    top aload pop lineto
+    x2 y2 lineto
+    stroke
+    
+    %newpath
+    %type 0 eq
+    %  {
+    %    dir 0 eq
+    %    {
+    %      top aload pop moveto
+    %      x1 y1 lineto
+    %      x2 y2 lineto
+    %    }
+    %    {
+    %      x1 y1 moveto
+    %      x2 y2 lineto
+    %      top aload pop lineto
+    %    }
+    %    ifelse
+    %stroke
+    
+  } forall
+  end
+} def
+
+%subTriangle takes a triangle as an argument and returns the triangles that results from its
+%substitution
+/subTriangle
+{
+  20 dict begin
+  /triangle exch def
+  /type triangle 0 get def
+  /dir triangle 1 get def
+  /base triangle 2 2 getinterval def
+  /x1 base 0 get 0 get def
+  /y1 base 0 get 1 get def
+  /x2 base 1 get 0 get def
+  /y2 base 1 get 1 get def
+  /temp triangle getTop def
+  /lambda temp 0 get def
+  /l temp 1 get def
+  /top temp 2 get def
+  /x3 top 0 get def
+  /y3 top 1 get def
+  /lambda2 x3 x1 sub x3 x1 sub dup mul y3 y1 sub dup mul add sqrt div acos def
+  
+  type 0 eq
+    {
+      dir 0 eq
+        {
+          [0 1 [x1 y1]
+            y2 y1 sub 0 lt
+            { [x1 l lambda cos mul add y1 l lambda sin mul sub] }
+            { [x1 l lambda cos mul add y1 l lambda sin mul add] } ifelse
+          ]
+          dup /temp exch getTop 2 get def
+          [1 1 [x3 y3] temp]
+          [0 0 [x2 y2] [x3 y3]]
+        }
+        {
+          [0 1 [x3 y3] [x1 y1]]
+          [0 0
+            y2 y1 sub 0 lt
+              { [x1 l 2 cos36 mul div lambda cos mul add y1 l 2 cos36 mul div lambda sin mul sub] }
+              { [x1 l 2 cos36 mul div lambda cos mul add y1 l 2 cos36 mul div lambda sin mul add] }
+            ifelse
+            [x2 y2]
+          ]
+          dup getTop 2 get [ exch 1 exch 0 exch [x3 y3] ]
+        }
+      ifelse
+    }
+    {
+      dir 0 eq
+        {
+          [0 0 [x2 y2] [x3 y3]]
+          dup getTop 2 get [ exch 1 exch 0 exch [x1 y1] ]
+        }
+        {
+          [0 1 [x3 y3] [x1 y1]]
+          dup /temp exch getTop 2 get def
+          [1 1 [x2 y2] temp]
+        }
+      ifelse
+    }
+  ifelse
+  end
+} def
+
+%triangles N subTriangles
+%subTriangles takes a list of triangles a performs a substitution on each of them. It returns
+%the new list of triangles. The substitution is performed N times.
+/subTriangles
+{
+  {
+    [
+    exch
+    {
+      subTriangle
+    }
+    forall
+    ]
+  } repeat
+} def
+
+
+%------------------------------------
+% Now generate and draw the triangles
+%------------------------------------
+
+triangles N subTriangles
+drawTriangles
+

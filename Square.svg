@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="Tiling_Semiregular_3_3_4_3_4_Snub_Square" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400">
+
+<defs>
+
+   <polygon id="Triangle" stroke-width="2" stroke="#000000" points="0,0 26,45 52,0"/>
+            
+   <polygon id="Square" fill="#99DDBB" stroke="#000000" stroke-width="2" points="0,0 26,45 -19,71 -45,26"/>
+            
+   <g id="Triangle_Pair">
+      <use xlink:href="#Triangle" fill="#AAAAEE"/>
+      <use xlink:href="#Triangle" fill="#CC88CC" transform="scale(1, -1)"/>
+   </g>
+   
+   <pattern id="Tri_Sqr_Pattern" patternUnits="userSpaceOnUse" patternTransform="translate(0) scale(0.935, 0.935)" width="142" height="142">
+            
+      <use xlink:href="#Square" transform="translate(45)"/>
+      <use xlink:href="#Square" transform="translate(116, 71)"/>
+      <use xlink:href="#Square" transform="translate(97) scale(-1, 1)"/>
+      <use xlink:href="#Square" transform="translate(26, 71) scale(-1, 1)"/>
+      
+      <use xlink:href="#Triangle_Pair" transform="translate(-26, 71)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(116, 71)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(45)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(45, 142)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(71, 97) rotate(-90)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(0, 26) rotate(-90)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(142, 26) rotate(-90)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(0, 168) rotate(-90)"/>
+      <use xlink:href="#Triangle_Pair" transform="translate(142, 168) rotate(-90)"/>
+   </pattern>
+</defs>
+
+<rect x="2" y="2" height="394" width="394" stroke="#000000" stroke-width="2" fill="url(#Tri_Sqr_Pattern)"/>
+</svg>

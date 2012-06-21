@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg id="Tiling_Dual_Semiregular_3_3_4_3_4_Cairo_Pentagonal" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="660" height="880">
+     
+<defs>
+	
+<!--   <polygon id="A_Pentagon" stroke-width="2" stroke="#000000" points="0,0 0,73.205 86.6025,123.205 136.6025,36.6025 86.6025,-50"/> -->
+  <polygon id="A_Pentagon" stroke-width="3" stroke="#707070" points="0,0 0,60 71,101 112,30 71,-41"/>
+
+   
+   <pattern id="The_Pattern" patternUnits="userSpaceOnUse" patternTransform="translate(0, -10) scale(0.3, 0.3)" width="284" height="284">
+   	        
+      <g id="A_Set">
+         <use xlink:href="#A_Pentagon" fill="#FFFFFF"/>
+         <use xlink:href="#A_Pentagon" fill="#FFFFFF" transform="translate(172, 30) rotate(90)"/>
+         <use xlink:href="#A_Pentagon" fill="#FFFFFF" transform="translate(112, 30) rotate(-90)"/>
+         <use xlink:href="#A_Pentagon" fill="#FFFFFF" transform="translate(284, 60) scale(-1, -1)"/>
+      </g>
+      <use xlink:href="#A_Set" transform="translate(142, 142)"/>
+      <use xlink:href="#A_Set" transform="translate(-142, 142)"/>
+      <use xlink:href="#A_Set" transform="translate(0, 284)"/>
+      
+   </pattern>
+</defs>
+
+<rect x="10" y="10" height="860" width="640" stroke="#000000" stroke-width="2" fill="url(#The_Pattern)"/>
+</svg>
