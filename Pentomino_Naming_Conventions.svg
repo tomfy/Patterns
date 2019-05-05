@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Pentomino Naming Conventions.  R. A. Nonenmacher  19-Jul-2008 -->
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+
+<svg  version="1.2" 
+      id="Pentomino_Naming" 
+      width="425" 
+      height="450" 
+      viewBox="100 150 525 600"
+	    overflow="visible" 
+	    enable-background="new 100 150 525 600" 
+	    xml:space="preserve">
+
+<g id="Common_Naming" >
+
+	<g id="F_1" fill="#DDBB99" stroke="#000000" stroke-width="0.25" >
+		<rect x="125" y="225" width="25" height="25"/>
+		<rect x="125" y="250" width="25" height="25"/>
+		<rect x="125" y="275" width="25" height="25"/>
+		<rect x="150" y="225" width="25" height="25"/>
+		<rect x="100" y="250" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="125,225 175,225 175,250 150,250 150,300 125,300 125,275 100,275 100,250 125,250"/>
+		<text font-size="20" fill="#000000" x="132" y="320">F</text>
+	</g>
+	<g id="I_1" fill="#EEAAAA" stroke="#000000" stroke-width="0.25" >
+		<rect x="200" y="275" width="25" height="25"/>
+		<rect x="200" y="250" width="25" height="25"/>
+		<rect x="200" y="225" width="25" height="25"/>
+		<rect x="200" y="200" width="25" height="25"/>
+		<rect x="200" y="175" width="25" height="25"/>
+		<rect x="200" y="175" fill="none" stroke-width="3" width="25" height="125"/>
+		<text font-size="20" fill="#000000" x="208" y="320">I</text>
+	</g>
+	<g id="L_1" fill="#CCCC88" stroke="#000000" stroke-width="0.25">
+		<rect x="250" y="200" width="25" height="25"/>
+		<rect x="250" y="225" width="25" height="25"/>
+		<rect x="250" y="250" width="25" height="25"/>
+		<rect x="250" y="275" width="25" height="25"/>
+		<rect x="275" y="275" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="250,200 275,200 275,275 300,275 300,300 250,300" />
+		<text font-size="20" fill="#000000" x="265" y="320">L</text>
+	</g>
+	<g id="N_1" fill="#AAEEAA" stroke="#000000" stroke-width="0.25" >
+    <rect x="394.3" y="229.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 290.401 -216.7346)"  width="25" height="25"/>
+    <rect x="376.6" y="247.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 297.7234 -199.0568)" width="25" height="25"/>
+    <rect x="359"   y="265"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 305.0457 -181.3791)" width="25" height="25"/>
+    <rect x="341.3" y="247.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 287.368 -174.0567)"  width="25" height="25"/>
+    <rect x="323.6" y="265"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 294.6903 -156.379)"  width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="425,242.2 406.8,225 371.5,259.9 353.8,242.2 318.4,277.5 336.1,295.2 353.8,277.5 371.5,295.2" />
+		<text font-size="20" fill="#000000" x="350" y="320">N</text>
+	</g>
+	<g id="P_1" fill="#BBDD99" stroke="#000000" stroke-width="0.25" >
+		<rect x="450" y="225" width="25" height="25"/>
+		<rect x="450" y="250" width="25" height="25"/>
+		<rect x="450" y="275" width="25" height="25"/>
+		<rect x="475" y="225" width="25" height="25"/>
+		<rect x="475" y="250" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="450,225 500,225 500,275 475,275 475,300 450,300" />
+		<text font-size="20" fill="#000000" x="456" y="320">P</text>
+	</g>
+	<g id="T_1" fill="#99DDBB" stroke="#000000" stroke-width="0.25" >
+		<rect x="525" y="225" width="25" height="25"/>
+		<rect x="550" y="225" width="25" height="25"/>
+		<rect x="575" y="225" width="25" height="25"/>
+		<rect x="550" y="250" width="25" height="25"/>
+		<rect x="550" y="275" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="525,225 600,225 600,250 575,250 575,300 550,300 550,250 525,250" />
+		<text font-size="20" fill="#000000" x="557" y="320">T</text>
+	</g>
+		<g id="U_1" fill="#88CCCC" stroke="#000000" stroke-width="0.25" >
+		<rect x="100" y="350" width="25" height="25"/>
+		<rect x="100" y="375" width="25" height="25"/>
+		<rect x="125" y="375" width="25" height="25"/>
+		<rect x="150" y="375" width="25" height="25"/>
+		<rect x="150" y="350" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="100,350 125,350 125,375 150,375 150,350 175,350 175,400 100,400" />
+		<text font-size="20" fill="#000000" x="130" y="420">U</text>
+	</g>
+	<g id="V_1" fill="#99BBDD" stroke="#000000" stroke-width="0.25" >
+    <rect x="269.3" y="334"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 327.5328 -97.8007)" width="25" height="25"/>
+    <rect x="251.6" y="351.6" transform="matrix(0.7071 0.7071 -0.7071 0.7071 334.8552 -80.1229)" width="25" height="25"/>
+    <rect x="234"   y="369.3" transform="matrix(0.7071 0.7071 -0.7071 0.7071 342.1776 -62.4452)" width="25" height="25"/>
+    <rect x="216.3" y="351.6" transform="matrix(0.7071 0.7071 -0.7071 0.7071 324.4998 -55.1228)" width="25" height="25"/>
+    <rect x="198.6" y="334"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 306.8221 -47.8005)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="300,346.5 281.8,328.8 246.5,364.1 211.1,328.8 193.4,346.5 246.5,400" />
+		<text font-size="20" fill="#000000" x="240" y="420">V</text>
+	</g>
+	<g id="W_1" fill="#AAAAEE" stroke="#000000" stroke-width="0.25" >
+    <rect x="304.7" y="350"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 797.4289 393.6941)" width="25" height="25"/>
+    <rect x="322.4" y="367.2" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 840.1067 411.3719)" width="25" height="25"/>
+    <rect x="340"   y="350"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 857.7844 368.694)" width="25" height="25"/>
+    <rect x="357.7" y="367.2" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 900.4623 386.3718)" width="25" height="25"/>
+    <rect x="375.4" y="350"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 918.14 343.6939)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="334.9,397.4 352.5,379.7 370.2,397.4 405.6,362 387.9,344.3 370.2,362 352.5,344.3 334.9,362 317.2,344.3 300,362" />
+		<text font-size="20" fill="#000000" x="342" y="420">W</text>
+	</g>
+	<g id="X_1" fill="#BB99DD" stroke="#000000" stroke-width="0.25" >
+    <rect x="444.3" y="334"   transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 534.8553 914.4779)" width="25" height="25"/>
+    <rect x="426.6" y="351.6" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 492.1776 932.1556)" width="25" height="25"/>
+    <rect x="409"   y="369.3" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 449.4997 949.8334)" width="25" height="25"/>
+    <rect x="409"   y="334"   transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 474.4998 889.4778)" width="25" height="25"/>
+    <rect x="444.3" y="369.3" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 509.8553 974.8335)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="456.8,328.8 475,346.5 456.8,364.1 475,381.8 456.8,400 439.1,381.8 421.5,400 403.8,381.8 421.5,364.1 403.8,346.5 421.5,328.8 439.1,346.5" />
+		<text font-size="20" fill="#000000" x="431" y="420">X</text>
+	</g>
+	<g id="Y_1" fill="#CC88CC" stroke="#000000" stroke-width="0.25" >
+    <rect x="519.3" y="354.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 415.401 -268.5112)" width="25" height="25"/>
+    <rect x="501.6" y="372.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 422.7234 -250.8335)" width="25" height="25"/>
+    <rect x="484"   y="390"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 430.0457 -233.1558)" width="25" height="25"/>
+    <rect x="466.3" y="407.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 437.3856 -215.4792)" width="25" height="25"/>
+    <rect x="484"   y="354.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 405.0456 -243.5112)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="478.8,437.9 461.1,420.2 496.5,384.9 478.8,367.2 496.5,350 514.1,367.2 531.8,350 550,367.2" />
+		<text font-size="20" fill="#000000" x="515" y="420">Y</text>
+	</g>
+	<g id="Z_1" fill="#DD99BB" stroke="#000000" stroke-width="0.25" >
+		<rect x="550" y="325" width="25" height="25"/>
+		<rect x="575" y="325" width="25" height="25"/>
+		<rect x="575" y="350" width="25" height="25"/>
+		<rect x="575" y="375" width="25" height="25"/>
+		<rect x="600" y="375" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="550,350 575,350 575,400 625,400 625,375 600,375 600,325 550,325" />
+		<text font-size="20" fill="#000000" x="582" y="420">Z</text>
+	</g>
+</g>
+
+<!-- ====================================================================================================== -->
+
+<g id="Conway_Naming">
+	<g id="O_2" fill="#EEAAAA" stroke="#000000" stroke-width="0.25">
+		<rect x="125" y="575" width="25" height="25"/>
+		<rect x="125" y="550" width="25" height="25"/>
+		<rect x="125" y="525" width="25" height="25"/>
+		<rect x="125" y="500" width="25" height="25"/>
+		<rect x="125" y="475" width="25" height="25"/>
+		<rect x="125" y="475" fill="none" stroke-width="3" width="25" height="125"/>
+		<text font-size="20" fill="#000000" x="130" y="620">O</text>
+	</g>
+	<g id="P_2" fill="#BBDD99" stroke="#000000" stroke-width="0.25" >
+		<rect x="175" y="525" width="25" height="25"/>
+		<rect x="175" y="550" width="25" height="25"/>
+		<rect x="175" y="575" width="25" height="25"/>
+		<rect x="200" y="525" width="25" height="25"/>
+		<rect x="200" y="550" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="175,525 225,525 225,575 200,575 200,600 175,600" />
+		<text font-size="20" fill="#000000" x="182" y="620">P</text>
+	</g>
+	<g id="Q_2" fill="#CCCC88" stroke="#000000" stroke-width="0.25" >
+		<rect x="250" y="500" width="25" height="25"/>
+		<rect x="275" y="500" width="25" height="25"/>
+		<rect x="275" y="525" width="25" height="25"/>
+		<rect x="275" y="550" width="25" height="25"/>
+		<rect x="275" y="575" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="250,500 300,500 300,600 275,600 275,525 250,525" />
+		<text font-size="20" fill="#000000" x="280" y="620">Q</text>
+	</g>
+	<g id="R_2" fill="#DDBB99" stroke="#000000" stroke-width="0.25" >
+		<rect x="350" y="525" width="25" height="25"/>
+		<rect x="350" y="550" width="25" height="25"/>
+		<rect x="350" y="575" width="25" height="25"/>
+		<rect x="375" y="525" width="25" height="25"/>
+		<rect x="325" y="550" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="350,525 400,525 400,550 375,550 375,600 350,600 350,575 325,575 325,550 350,550" />
+		<text font-size="20" fill="#000000" x="355" y="620">R</text>
+	</g>
+	<g id="S_2" fill="#AAEEAA" stroke="#000000" stroke-width="0.25" >
+	  <rect x="400" y="575" width="25" height="25"/>
+		<rect x="425" y="575" width="25" height="25"/>
+		<rect x="450" y="575" width="25" height="25"/>
+		<rect x="450" y="550" width="25" height="25"/>
+		<rect x="475" y="550" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="475,600 475,575 500,575 500,550 450,550 450,575 400,575 400,600" />
+		<text font-size="20" fill="#000000" x="444" y="620">S</text>
+	</g>
+	<g id="T_2" fill="#99DDBB" stroke="#000000" stroke-width="0.25" >
+		<rect x="525" y="525" width="25" height="25"/>
+		<rect x="550" y="525" width="25" height="25"/>
+		<rect x="575" y="525" width="25" height="25"/>
+		<rect x="550" y="550" width="25" height="25"/>
+		<rect x="550" y="575" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="525,525 600,525 600,550 575,550 575,600 550,600 550,550 525,550" />
+		<text font-size="20" fill="#000000" x="557" y="620">T</text>
+	</g>
+	<g id="U_2" fill="#88CCCC" stroke="#000000" stroke-width="0.25" >
+		<rect x="100" y="650" width="25" height="25"/>
+		<rect x="100" y="675" width="25" height="25"/>
+		<rect x="125" y="675" width="25" height="25"/>
+		<rect x="150" y="675" width="25" height="25"/>
+		<rect x="150" y="650" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="100,650 125,650 125,675 150,675 150,650 175,650 175,700 100,700" />
+		<text font-size="20" fill="#000000" x="130" y="720">U</text>
+	</g>
+	<g id="V_2" fill="#99BBDD" stroke="#000000" stroke-width="0.25" >
+    <rect x="269.3" y="634"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 539.6649 -9.9327)" width="25" height="25"/>
+    <rect x="251.6" y="651.6" transform="matrix(0.7071 0.7071 -0.7071 0.7071 546.9872  7.7451)" width="25" height="25"/>
+    <rect x="234"   y="669.3" transform="matrix(0.7071 0.7071 -0.7071 0.7071 554.3096 25.4228)" width="25" height="25"/>
+    <rect x="216.3" y="651.6" transform="matrix(0.7071 0.7071 -0.7071 0.7071 536.6318 32.7451)" width="25" height="25"/>
+    <rect x="198.6" y="634"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 518.9541 40.0675)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="300,646.5 281.8,628.8 246.5,664.1 211.1,628.8 193.4,646.5 246.5,700" />
+		<text font-size="20" fill="#000000" x="240" y="720">V</text>
+	</g>
+	<g id="W_2" fill="#AAAAEE" stroke="#000000" stroke-width="0.25" >
+    <rect x="304.7" y="650"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1009.5609 905.8262)" width="25" height="25"/>
+    <rect x="322.4" y="667.2" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1052.2388 923.5039)" width="25" height="25"/>
+    <rect x="340"   y="650"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1069.9165 880.8260)" width="25" height="25"/>
+    <rect x="357.7" y="667.2" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1112.5942 898.5038)" width="25" height="25"/>
+    <rect x="375.4" y="650"   transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 1130.272 855.826)"   width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="334.9,697.4 352.5,679.7 370.2,697.4 405.6,662 387.9,644.3 370.2,662 352.5,644.3 334.9,662 317.2,644.3 300,662" />
+		<text font-size="20" fill="#000000" x="342" y="720">W</text>
+	</g>
+	<g id="X_2" fill="#BB99DD" stroke="#000000" stroke-width="0.25" >
+    <rect x="444.3" y="634"   transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 322.7233 1426.6100)" width="25" height="25"/>
+    <rect x="426.6" y="651.6" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 280.0455 1444.2877)" width="25" height="25"/>
+    <rect x="409"   y="669.3" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 237.3677 1461.9655)" width="25" height="25"/>
+    <rect x="409"   y="634"   transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 262.3678 1401.6099)" width="25" height="25"/>
+    <rect x="444.3" y="669.3" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 297.7232 1486.9656)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="456.8,628.8 475,646.5 456.8,664.1 475,681.8 456.8,700 439.1,681.8 421.5,700 403.8,681.8 421.5,664.1 403.8,646.5 421.5,628.8 439.1,646.5" />
+		<text font-size="20" fill="#000000" x="431" y="720">X</text>
+	</g>
+	<g id="Y_2" fill="#CC88CC" stroke="#000000" stroke-width="0.25" >
+    <rect x="519.3" y="654.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 627.533 -180.6433)" width="25" height="25"/>
+    <rect x="501.6" y="672.4" transform="matrix(0.7071 0.7071 -0.7071 0.7071 634.8554 -162.9656)" width="25" height="25"/>
+    <rect x="484"   y="690"   transform="matrix(0.7071 0.7071 -0.7071 0.7071 642.1777 -145.2878)" width="25" height="25"/>
+    <rect x="466.3" y="707.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 649.5235 -127.6054)" width="25" height="25"/>
+    <rect x="484"   y="654.7" transform="matrix(0.7071 0.7071 -0.7071 0.7071 617.1777 -155.6432)" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="478.8,737.9 461.1,720.2 496.5,684.9 478.8,667.2 496.5,649.5 514.1,667.2 531.8,649.5 550,667.2" />
+		<text font-size="20" fill="#000000" x="515" y="720">Y</text>
+	</g>
+	<g id="Z_2" fill="#DD99BB" stroke="#000000" stroke-width="0.25" >
+		<rect x="550" y="625" width="25" height="25"/>
+		<rect x="575" y="625" width="25" height="25"/>
+		<rect x="575" y="650" width="25" height="25"/>
+		<rect x="575" y="675" width="25" height="25"/>
+		<rect x="600" y="675" width="25" height="25"/>
+		<polygon fill="none" stroke-width="3" points="550,650 575,650 575,700 625,700 625,675 600,675 600,625 550,625" />
+		<text font-size="20" fill="#000000" x="582" y="720">Z</text>
+	</g>
+</g>
+</svg>
