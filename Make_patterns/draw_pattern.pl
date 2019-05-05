@@ -22,14 +22,14 @@ use vars qw($opt_p $opt_r $opt_c $opt_s $opt_a);
 # get options
 getopts("p:r:c:s:a:h");
 
-if(!defined $opt_p){
-print "Usage: draw_pattern -p <pattern> -r <nrows> -c <ncols> -s <scale> -a <angle_param> \n";
-print " possible patterns: SnubSquare CairoPentagonal Triangle Hex TruncatedSquare \n";
-print " Pattern must be specified on command line; other parameters have following defaults: \n";
-print " nrows: 10; ncols: nrows; scale 50; angle_param: 1/3. \n";
-print " The actual angle used is pi*angle_param, which is pi/3 by default. \n";
-print " Outputs svg to stdout. \n";
-exit;
+if (!defined $opt_p) {
+   print "Usage: draw_pattern -p <pattern> -r <nrows> -c <ncols> -s <scale> -a <angle_param> \n";
+   print " possible patterns: SnubSquare CairoPentagonal Triangle Hex TruncatedSquare \n";
+   print " Pattern must be specified on command line; other parameters have following defaults: \n";
+   print " nrows: 10; ncols: nrows; scale 50; angle_param: 1/3. \n";
+   print " The actual angle used is pi*angle_param, which is pi/3 by default. \n";
+   print " Outputs svg to stdout. \n";
+   exit;
 }
 # print "# \'histogram.pl -c 1  -l -3.0 -u 11.0 -w 0.1  < data\'\n";
 # print "[$opt_p, $opt_r, $opt_c, $opt_s, $opt_a] \n";
@@ -51,24 +51,21 @@ my $overall_rotation_angle = 0.0; # additional rotation of the entire pattern co
 my ($xoffset, $yoffset) = ($offset_factor*$scale, $offset_factor*$scale); 
 
 my $unit_cell_obj;
-if($opt_p eq 'SnubSquare'){
-$unit_cell_obj = SnubSquare->new($scale, $angle);
-}
-elsif($opt_p eq 'CairoPentagonal'){
-$unit_cell_obj = CairoPentagonal->new($scale, $angle);
-}
-elsif($opt_p eq 'Hex'){
-$unit_cell_obj = Hex->new($scale, $angle);
-}
-elsif($opt_p eq 'Triangle'){
-$unit_cell_obj = Triangle->new($scale, $angle);
-}
-elsif($opt_p eq 'TruncatedSquare'){
-$unit_cell_obj = TruncatedSquare->new($scale, $angle);
+if ($opt_p eq 'SnubSquare') {
+   $unit_cell_obj = SnubSquare->new($scale, $angle);
+} elsif ($opt_p eq 'CairoPentagonal') {
+   $unit_cell_obj = CairoPentagonal->new($scale, $angle);
+} elsif ($opt_p eq 'Hex') {
+   $unit_cell_obj = Hex->new($scale, $angle);
+} elsif ($opt_p eq 'Triangle') {
+   $unit_cell_obj = Triangle->new($scale, $angle);
+} elsif ($opt_p eq 'TruncatedSquare') {
+   $unit_cell_obj = TruncatedSquare->new($scale, $angle);
 }
 
 # get the set of lines forming the pattern:
-my $pattern_lines_ref = pattern_from_unit_cell($unit_cell_obj, $nrows, $ncols, $overall_rotation_angle, $xoffset, $yoffset);
+my $pattern_lines_ref = rows_of_units($unit_cell_obj, [[3,2],[2,3],[1,4]], $overall_rotation_angle, $xoffset, $yoffset);
+# pattern_from_unit_cell($unit_cell_obj, $nrows, $ncols, $overall_rotation_angle, $xoffset, $yoffset);
 
 # generate the svg code for this set of lines:
 my $svg_output_string = svg_output_lines($pattern_lines_ref, $rgb, $stroke_width);
@@ -85,113 +82,190 @@ print $svg_output_string;
 
 sub gnuplot_output_lines{   
 
-	my $lines_ref = shift;
-	my $rgb = shift || "99,99,99";
-	my $stroke_width = shift || 1;
-	my $gnuplot_string = "";
-	foreach my $line_ref (@$lines_ref){
-		my ($x1, $y1) = @{$line_ref->[0]};
-		my ($x2, $y2) = @{$line_ref->[1]};
-		$gnuplot_string .= "$x1  $y1 \n" . "$x2 $y2 \n\n";
-	}
-	return $gnuplot_string;
+   my $lines_ref = shift;
+   my $rgb = shift || "99,99,99";
+   my $stroke_width = shift || 1;
+   my $gnuplot_string = "";
+   foreach my $line_ref (@$lines_ref) {
+      my ($x1, $y1) = @{$line_ref->[0]};
+      my ($x2, $y2) = @{$line_ref->[1]};
+      $gnuplot_string .= "$x1  $y1 \n" . "$x2 $y2 \n\n";
+   }
+   return $gnuplot_string;
 }
 
 
 sub svg_output_lines{
-# returns a string containing svg code to draw the set of lines
-# just lots of individual lines, not polylines
+   # returns a string containing svg code to draw the set of lines
+   # just lots of individual lines, not polylines
 
-	my $lines_ref = shift;
-	my $rgb = shift || "99,99,99";
-	my $stroke_width = shift || 1;
+   my $lines_ref = shift;
+   my $rgb = shift || "99,99,99";
+   my $stroke_width = shift || 1;
 
-# Not sure of the significance of the width and height here - just set to largish value.
-	my $svg_string = '<?xml version="1.0" standalone="no"?> <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' . "\n";
-	$svg_string .= '<svg width="2000" height="2000" version="1.1" xmlns="http://www.w3.org/2000/svg">' . "\n";
+   # Not sure of the significance of the width and height here - just set to largish value.
+   my $svg_string = '<?xml version="1.0" standalone="no"?> <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' . "\n";
+   $svg_string .= '<svg width="2000" height="2000" version="1.1" xmlns="http://www.w3.org/2000/svg">' . "\n";
 
-	foreach my $line_ref (@$lines_ref){
-		my ($x1, $y1) = @{$line_ref->[0]};
-		my ($x2, $y2) = @{$line_ref->[1]}; 
-# print "$x1, $x2 \n";
+   foreach my $line_ref (@$lines_ref) {
+      my ($x1, $y1) = @{$line_ref->[0]};
+      my ($x2, $y2) = @{$line_ref->[1]}; 
+      # print "$x1, $x2 \n";
 
-		$svg_string .= "<line x1=\"$x1\" y1=\"$y1\" x2=\"$x2\" y2=\"$y2\" style=\"" .  "stroke:rgb($rgb);stroke-width:$stroke_width\"/>" . "\n";
+      $svg_string .= "<line x1=\"$x1\" y1=\"$y1\" x2=\"$x2\" y2=\"$y2\" style=\"" .  "stroke:rgb($rgb);stroke-width:$stroke_width\"/>" . "\n";
 
-	}
+   }
 
-	$svg_string .= '</svg>' . "\n";
-	return $svg_string;
+   $svg_string .= '</svg>' . "\n";
+   return $svg_string;
 }
 
 sub pattern_from_unit_cell{
 
-	my $unit_cell_obj = shift;
-	my $nrows = shift;
-	my $ncols = shift;
-	my $overall_rotation_angle = shift;
-	my $xoffset = shift;
-	my $yoffset = shift;
-#	my $unit_cell_obj = shift;
+   my $unit_cell_obj = shift;
+   my $nrows = shift;
+   my $ncols = shift;
+   my $overall_rotation_angle = shift;
+   my $xoffset = shift;
+   my $yoffset = shift;
+   #	my $unit_cell_obj = shift;
 
-	my $unit_lines = $unit_cell_obj->get_lines();
-	my $edge_lines_1 = $unit_cell_obj->get_edge_lines_1();
-	my $translation1 = $unit_cell_obj->get_translation_1();
-	my $edge_lines_2 = $unit_cell_obj->get_edge_lines_2();
-	my $translation2 = $unit_cell_obj->get_translation_2();
+   my $unit_lines = $unit_cell_obj->get_lines();
+   my $edge_lines_1 = $unit_cell_obj->get_edge_lines_1();
+   my $translation1 = $unit_cell_obj->get_translation_1();
+   my $edge_lines_2 = $unit_cell_obj->get_edge_lines_2();
+   my $translation2 = $unit_cell_obj->get_translation_2();
 
-	my @lines = ();
-	for (my $i=0; $i<$ncols; $i++){
-		for (my $j=0; $j<$nrows; $j++){
-			my $translation = add_V(scalar_mult_V($i, $translation1), scalar_mult_V($j, $translation2));
-			foreach my $line (@{$unit_lines}){
-				my $p1_ref = $line->[0];
-				my $p2_ref = $line->[1];
-				my ($x1, $y1) = @{add_V( $p1_ref, $translation ) };
-				my ($x2, $y2) = @{add_V( $p2_ref, $translation ) };
+   my @lines = ();
+   for (my $i=0; $i<$ncols; $i++) {
+      for (my $j=0; $j<$nrows; $j++) {
+         my $translation = add_V(scalar_mult_V($i, $translation1), scalar_mult_V($j, $translation2));
+         foreach my $line (@{$unit_lines}) {
+            my $p1_ref = $line->[0];
+            my $p2_ref = $line->[1];
+            my ($x1, $y1) = @{add_V( $p1_ref, $translation ) };
+            my ($x2, $y2) = @{add_V( $p2_ref, $translation ) };
 
-				($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
-				($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
-				$x1 += $xoffset; $x2 += $xoffset; 
-				$y1 += $yoffset; $y2 += $yoffset;
+            ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+            ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+            $x1 += $xoffset; $x2 += $xoffset; 
+            $y1 += $yoffset; $y2 += $yoffset;
 
-				push @lines, [[$x1, $y1], [$x2, $y2]];
-			}
-		}
-# close off the ragged edges at the end of the column
-		foreach my $line (@{$edge_lines_2}){
-			my $p1_ref = $line->[0];
-			my $p2_ref = $line->[1];
-			my $x1 = $p1_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
-			my $y1 = $p1_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
-			my $x2 = $p2_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
-			my $y2 = $p2_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
+            push @lines, [[$x1, $y1], [$x2, $y2]];
+         }
+      }
+      # close off the ragged edges at the end of the column
+      foreach my $line (@{$edge_lines_2}) {
+         my $p1_ref = $line->[0];
+         my $p2_ref = $line->[1];
+         my $x1 = $p1_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
+         my $y1 = $p1_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
+         my $x2 = $p2_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
+         my $y2 = $p2_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
 
-			($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
-			($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
-			$x1 += $xoffset; $x2 += $xoffset;
-			$y1 += $yoffset; $y2 += $yoffset;
+         ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+         ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+         $x1 += $xoffset; $x2 += $xoffset;
+         $y1 += $yoffset; $y2 += $yoffset;
 
-			push @lines, [[$x1, $y1], [$x2, $y2]];
-		}
-	}
+         push @lines, [[$x1, $y1], [$x2, $y2]];
+      }
+   }
 
-# close off the ragged edges at the ends of the rows
-	for(my $j = 0; $j < $nrows; $j++){
-		foreach my $line (@{$edge_lines_1}){
-			my $p1_ref = $line->[0];
-			my $p2_ref = $line->[1];
-			my $x1 = $p1_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
-			my $y1 = $p1_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
-			my $x2 = $p2_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
-			my $y2 = $p2_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
+   # close off the ragged edges at the ends of the rows
+   for (my $j = 0; $j < $nrows; $j++) {
+      foreach my $line (@{$edge_lines_1}) {
+         my $p1_ref = $line->[0];
+         my $p2_ref = $line->[1];
+         my $x1 = $p1_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
+         my $y1 = $p1_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
+         my $x2 = $p2_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
+         my $y2 = $p2_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
 
-			($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
-			($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
-			$x1 += $xoffset; $x2 += $xoffset;
-			$y1 += $yoffset; $y2 += $yoffset;
+         ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+         ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+         $x1 += $xoffset; $x2 += $xoffset;
+         $y1 += $yoffset; $y2 += $yoffset;
 
-			push @lines, [[$x1, $y1], [$x2, $y2]];
-		}
-	}
-	return \@lines;
+         push @lines, [[$x1, $y1], [$x2, $y2]];
+      }
+   }
+   return \@lines;
 }
+
+
+sub rows_of_units{
+
+   my $unit_cell_obj = shift;
+   my $rows = shift; # array ref of array refs each holding a pair: offset (in units) and n in row.
+   my $overall_rotation_angle = shift;
+   my $xoffset = shift;
+   my $yoffset = shift;
+   #	my $unit_cell_obj = shift;
+
+   my $unit_lines = $unit_cell_obj->get_lines();
+   my $edge_lines_1 = $unit_cell_obj->get_edge_lines_1();
+   my $translation1 = $unit_cell_obj->get_translation_1();
+   my $edge_lines_2 = $unit_cell_obj->get_edge_lines_2();
+   my $translation2 = $unit_cell_obj->get_translation_2();
+
+   my $nrows = scalar @$rows;
+   my @lines = ();
+   #   for (my $i=0; $i<$ncols; $i++) {
+   for (my $j=0; $j<$nrows; $j++) {
+      my ($offset_in_row, $n_in_row) = @{$rows->[$j]};
+      for (my $i=$offset_in_row; $i < $offset_in_row + $n_in_row; $i++) {
+         my $translation = add_V(scalar_mult_V($i, $translation1), scalar_mult_V($j, $translation2));
+         foreach my $line (@{$unit_lines}) {
+            my $p1_ref = $line->[0];
+            my $p2_ref = $line->[1];
+            my ($x1, $y1) = @{add_V( $p1_ref, $translation ) };
+            my ($x2, $y2) = @{add_V( $p2_ref, $translation ) };
+
+            ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+            ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+            $x1 += $xoffset; $x2 += $xoffset; 
+            $y1 += $yoffset; $y2 += $yoffset;
+
+            push @lines, [[$x1, $y1], [$x2, $y2]];
+         }
+         # close off the ragged edges at the end of the column
+         foreach my $line (@{$edge_lines_2}) {
+            my $p1_ref = $line->[0];
+            my $p2_ref = $line->[1];
+            my $x1 = $p1_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
+            my $y1 = $p1_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
+            my $x2 = $p2_ref->[0] + $i * $translation1->[0] + $nrows * $translation2->[0];
+            my $y2 = $p2_ref->[1] + $i * $translation1->[1] + $nrows * $translation2->[1];
+
+            ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+            ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+            $x1 += $xoffset; $x2 += $xoffset;
+            $y1 += $yoffset; $y2 += $yoffset;
+
+            push @lines, [[$x1, $y1], [$x2, $y2]];
+         }
+      }
+   }
+
+   # close off the ragged edges at the ends of the rows
+   for (my $j = 0; $j < $nrows; $j++) {
+      foreach my $line (@{$edge_lines_1}) {
+         my $p1_ref = $line->[0];
+         my $p2_ref = $line->[1];
+         my $x1 = $p1_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
+         my $y1 = $p1_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
+         my $x2 = $p2_ref->[0] + $ncols * $translation1->[0] + $j * $translation2->[0];
+         my $y2 = $p2_ref->[1] + $ncols * $translation1->[1] + $j * $translation2->[1];
+
+         ($x1, $y1) = rotate_2d_V($x1, $y1, $overall_rotation_angle);
+         ($x2, $y2) = rotate_2d_V($x2, $y2, $overall_rotation_angle);
+         $x1 += $xoffset; $x2 += $xoffset;
+         $y1 += $yoffset; $y2 += $yoffset;
+
+         push @lines, [[$x1, $y1], [$x2, $y2]];
+      }
+   }
+   return \@lines;
+}
+
