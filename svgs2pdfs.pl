@@ -7,6 +7,7 @@ open my $fh, "<$input_file";
 my $file_string = do { local $/; <$fh> };
 
 my @pages_svg = split("<!-- PAGE SEPARATOR -->", $file_string);
+print STDERR "Number of pages in svg: ", scalar @pages_svg, "\n";
 my $pdf_files_to_combine = '';
 
 my $page_number = 1;
@@ -24,6 +25,7 @@ close $fh;
 my $output = `cairosvg $tmp_svg_page_file -f pdf > $tmp_svg_page_file`;
 print $output, "\n end of page number $page_number. \n\n\n";
 }else{
+  #print STDERR "page_svg: $page_svg \n";
 my $pdf_page_output = filter $page_svg, 'cairosvg -f pdf - ';  # , '--with', 'various=args', '--etc';
 #my $tmp_svg_page_file = "tmp_page_" . $page_number
 open my $fh, ">$tmp_pdf_page_file";
